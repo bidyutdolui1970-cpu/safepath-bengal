@@ -2,36 +2,29 @@
 
 **Explore Together. Report Responsibly. Build Safer Communities.**
 
-SafePath Bengal is a community mapping prototype for exploring and submitting reports about local conditions across West Bengal, India.
+A community mapping prototype for local conditions across West Bengal, India.
 
-## Run it
-
-```bash
-python -m http.server 8001
-```
-
-Open `http://localhost:8001` and keep the terminal running. On Windows, if `python` is not recognized, try `py -m http.server 8001`.
+> Not an emergency service. Built-in reports are illustrative, not live incidents. Use official sources for urgent decisions.
 
 ## Features
 
-- Interactive Leaflet map with OpenStreetMap tiles and six report categories.
-- Place search, map filters, report-text search, recent reports, and category/status analytics.
-- Report form with map selection, validation, duplicate checks, dates, and optional metadata-stripped images.
-- Browser-local demo mode and optional local JSON API.
-- AWS SAM template for S3, CloudFront, API Gateway, Lambda, and DynamoDB.
+- Leaflet/OpenStreetMap map, six categories, filters, search, report details, and dashboard analytics.
+- Map-selected public-location reports with validation, approximate coordinates, duplicate checks, and optional metadata-stripped photos.
+- Local demo mode with browser storage and no AWS credentials.
+- Optional Node.js local API and AWS SAM infrastructure scaffold.
 
-## Safety and privacy
+## Run locally
 
-Reports start unverified. Included GeoJSON data is illustrative and not live. Coordinates are rounded; avoid homes and private locations. Current location requires browser permission. This is not an emergency service; use official sources for urgent decisions.
+Serve this directory over HTTP (for example, `python -m http.server 8001`) and open `http://localhost:8001`.
+
+## Privacy and safety
+
+Reports start unverified. Coordinates are rounded; avoid homes and private locations. Current location requires browser permission. Do not include sensitive details.
 
 ## AWS status
 
-The SAM template is an undeployed scaffold; no AWS services have been deployed or tested. Local demo mode needs no AWS account or credentials. See `AWS_ARCHITECTURE.md` before deploying; usage may incur charges.
+The SAM template has not been deployed or tested. AWS usage may incur charges. Local demo mode needs no AWS account or credentials. See `AWS_ARCHITECTURE.md` before deploying.
 
-## Optional local API
+With Node.js 20+, run `node backend/local-server.mjs`; run tests with `npm test --prefix backend`.
 
-With Node.js 20+, run `node backend/local-server.mjs`. Open `http://localhost:8001/?api=http%3A%2F%2F127.0.0.1%3A3001`. Run tests with `npm test --prefix backend`.
-
-See `HACKATHON_SUBMISSION.md`, `DEMO_SCRIPT.md`, `CONTRIBUTING.md`, and `LICENSE` for more.# Screenshots
-
-Add current screenshots of the map dashboard, a report popup, category analytics, and the report form here. Use fictional/demo content only; do not capture browser location, private reports, account details, or moderator tokens.
+See `HACKATHON_SUBMISSION.md`, `DEMO_SCRIPT.md`, `CONTRIBUTING.md`, and `LICENSE` for more.
