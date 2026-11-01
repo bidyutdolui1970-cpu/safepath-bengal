@@ -1,0 +1,14 @@
+.aws-sam/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+node_modules/
+backend/data/*.json
+backend/data/*.tmp
+coverage/
+.DS_Store
+Thumbs.db

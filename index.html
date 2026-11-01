@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09131b">
+  <meta name="description" content="Explore community-submitted location reports across West Bengal. Reports are unverified and this is not an emergency service.">
+  <title>SafePath Bengal | Community Map</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="SafePath Bengal home">
+        <span class="brand-mark" aria-hidden="true">SP</span>
+        <span><span class="brand-name">SafePath <strong>Bengal</strong></span><span class="brand-sub">COMMUNITY CONDITIONS MAP</span></span>
+      </a>
+      <div class="top-actions">
+        <span class="mode-pill"><span class="live-dot" aria-hidden="true"></span><span id="modeLabel">LOCAL DEMO</span></span>
+        <button class="button button-primary" id="addReportTop" type="button"><span aria-hidden="true">+</span> Report a condition</button>
+      </div>
+    </header>
+
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="Map navigation and reports">
+        <div class="sidebar-intro">
+          <div class="eyebrow">WEST BENGAL, INDIA</div>
+          <h1>Know your<br><span>way around.</span></h1>
+          <p>Explore together. Report responsibly. Build safer communities.</p>
+        </div>
+        <nav class="side-nav" aria-label="Dashboard sections">
+          <a class="nav-link active" href="#mapSection"><span class="nav-symbol" aria-hidden="true">⌖</span> Community map</a>
+          <a class="nav-link" href="#analytics"><span class="nav-symbol" aria-hidden="true">▤</span> Report overview</a>
+        </nav>
+
+        <section class="side-section" aria-labelledby="filterHeading">
+          <div class="section-label" id="filterHeading">FILTER REPORTS</div>
+          <div class="filter-list">
+            <label class="filter-row"><span><i class="category-dot dot-flood"></i>Flooding & waterlogging</span><input type="checkbox" data-category-filter="flood" checked></label>
+            <label class="filter-row"><span><i class="category-dot dot-blockage"></i>Road blockage</span><input type="checkbox" data-category-filter="road-blockage" checked></label>
+            <label class="filter-row"><span><i class="category-dot dot-damaged"></i>Damaged road</span><input type="checkbox" data-category-filter="damaged-road" checked></label>
+            <label class="filter-row"><span><i class="category-dot dot-service"></i>Service disruption</span><input type="checkbox" data-category-filter="service-disruption" checked></label>
+            <label class="filter-row"><span><i class="category-dot dot-facility"></i>Public facility</span><input type="checkbox" data-category-filter="public-facility" checked></label>
+            <label class="filter-row"><span><i class="category-dot dot-community"></i>Community location</span><input type="checkbox" data-category-filter="community-location" checked></label>
+          </div>
+        </section>
+
+        <section class="side-section recent-section" aria-labelledby="recentHeading">
+          <div class="section-heading"><div class="section-label" id="recentHeading">RECENT REPORTS</div><button class="text-button" id="clearReports" type="button">Clear mine</button></div>
+          <label class="sr-only" for="reportSearch">Filter reports by text</label>
+          <input class="report-search" id="reportSearch" type="search" placeholder="Filter reports…" autocomplete="off">
+          <div id="reportList" class="report-list" aria-live="polite"></div>
+        </section>
+        <div class="sidebar-foot"><strong>Not an emergency service.</strong><br>Use official sources for urgent decisions. Avoid exact home addresses in reports.</div>
+      </aside>
+
+      <main class="main-content" id="overview">
+        <section class="welcome-row">
+          <div><div class="eyebrow">COMMUNITY SNAPSHOT</div><h2>Explore local conditions</h2><p>Browse shared observations across West Bengal.</p></div>
+          <span class="sample-tag"><span class="live-dot" aria-hidden="true"></span> SAMPLE DATA INCLUDED</span>
+        </section>
+
+        <div class="safety-banner" role="note"><span class="safety-icon" aria-hidden="true">!</span><p><strong>For awareness only.</strong> Reports may be inaccurate or outdated. All built-in map entries are illustrative sample data, not live incidents.</p></div>
+
+        <section class="stats-grid" aria-label="Report statistics">
+          <article class="stat-card stat-total"><div class="stat-heading"><span>Total reports</span><span class="stat-icon" aria-hidden="true">◎</span></div><strong class="stat-number" id="totalReports">0</strong><small>Sample and community reports</small></article>
+          <article class="stat-card"><div class="stat-heading"><span>Awaiting review</span><span class="stat-icon icon-cyan" aria-hidden="true">◷</span></div><strong class="stat-number" id="pendingReports">0</strong><small>Unverified reports</small></article>
+          <article class="stat-card"><div class="stat-heading"><span>Verified</span><span class="stat-icon icon-green" aria-hidden="true">✓</span></div><strong class="stat-number" id="verifiedReports">0</strong><small>Moderator-reviewed</small></article>
+          <article class="stat-card"><div class="stat-heading"><span>Closed</span><span class="stat-icon icon-blue" aria-hidden="true">↗</span></div><strong class="stat-number" id="closedReports">0</strong><small>Marked resolved</small></article>
+        </section>
+
+        <section class="map-panel" id="mapSection" aria-labelledby="mapHeading">
+          <div class="map-panel-head">
+            <div><div class="section-label">LIVE MAP VIEW</div><h2 id="mapHeading">West Bengal community map</h2><p>Choose a marker for details, or select a point to report.</p></div>
+            <div class="map-controls">
+              <form id="placeSearchForm" class="place-search" role="search">
+                <label class="sr-only" for="placeSearch">Search a place in West Bengal</label>
+                <input id="placeSearch" type="search" placeholder="Search a place…" maxlength="100" autocomplete="off">
+                <button class="icon-button" type="submit" aria-label="Search place" title="Search place">⌕</button>
+              </form>
+              <button class="button button-subtle" id="locateBtn" type="button" title="Ask permission to show your current area">My area</button>
+              <button class="icon-button legend-toggle" id="legendBtn" type="button" aria-label="Toggle map key" aria-expanded="false" title="Map key">?</button>
+            </div>
+          </div>
+          <p class="search-privacy">Place searches are sent to OpenStreetMap Nominatim. Search is explicit; no continuous location tracking.</p>
+          <div class="map-frame"><div id="map" role="application" aria-label="Interactive map of West Bengal"></div><div class="map-note"><span class="sample-dot" aria-hidden="true"></span> Sample markers are illustrative <span class="note-separator">·</span> Not an emergency service</div>
+            <div class="legend-card" id="legendCard" hidden><strong>Map key</strong><div><i class="category-dot dot-flood"></i> Flood / water</div><div><i class="category-dot dot-blockage"></i> Road blockage</div><div><i class="category-dot dot-damaged"></i> Damaged road</div><div><i class="category-dot dot-service"></i> Service disruption</div><div><i class="category-dot dot-facility"></i> Public facility</div><div><i class="category-dot dot-community"></i> Community location</div></div>
+          </div>
+        </section>
+
+        <section class="analytics-grid" id="analytics" aria-label="Report analytics">
+          <article class="analytics-panel"><div class="analytics-head"><div><div class="section-label">CATEGORY MIX</div><h2>Reports by category</h2></div><span class="mini-label">ALL REPORTS</span></div><div id="categoryChart" class="category-chart"></div></article>
+          <article class="analytics-panel status-panel"><div class="analytics-head"><div><div class="section-label">MODERATION</div><h2>Review status</h2></div><span class="mini-label">ALL REPORTS</span></div><div id="statusChart" class="status-chart"></div><p class="chart-footnote">Unverified means community-submitted and not confirmed by a moderator.</p></article>
+        </section>
+        <footer class="page-footer">SafePath Bengal is a community awareness prototype, not an emergency service. OpenStreetMap contributors provide map data.</footer>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="reportDialog" aria-labelledby="dialogTitle">
+    <form id="reportForm">
+      <div class="dialog-head"><div><div class="eyebrow">COMMUNITY CONTRIBUTION</div><h2 id="dialogTitle">Share an observation</h2></div><button class="close-button" type="button" id="closeDialog" aria-label="Close report form">×</button></div>
+      <p class="dialog-copy">Reports are public in this demo and start as unverified. Do not include names, phone numbers, or private residential addresses.</p>
+      <label class="field-label" for="reportTitle">Report title<input id="reportTitle" name="title" placeholder="e.g. Water across the service road" required minlength="5" maxlength="90" autocomplete="off"></label>
+      <label class="field-label" for="reportCategory">Category<select id="reportCategory" name="category" required><option value="flood">Flooding & waterlogging</option><option value="road-blockage">Road blockage</option><option value="damaged-road">Damaged road</option><option value="service-disruption">Public-service disruption</option><option value="public-facility">Public facility</option><option value="community-location">Community location</option></select></label>
+      <label class="field-label" for="reportLocation">Public location name<input id="reportLocation" name="locationName" placeholder="Nearby public landmark or road" required minlength="3" maxlength="100" autocomplete="off"></label>
+      <div class="location-row"><div id="locationStatus" class="location-status" aria-live="polite">No map point selected</div><button class="button button-subtle" id="pickLocationBtn" type="button">Choose on map</button></div>
+      <p class="field-hint">Select a public point on the map. The saved position is rounded to approximately 100 m; avoid homes and private locations.</p>
+      <label class="field-label" for="reportTime">Observed date and time<input id="reportTime" name="observedAt" type="datetime-local" required></label>
+      <label class="field-label" for="reportDescription">What did you observe?<textarea id="reportDescription" name="description" placeholder="Share a concise, factual description…" rows="3" required minlength="10" maxlength="500"></textarea></label>
+      <label class="field-label" for="reportImage">Photo (optional)<input id="reportImage" name="image" type="file" accept="image/jpeg,image/png,image/webp"><span class="field-hint" id="photoHint">JPEG, PNG or WebP up to 120 KB. Images are re-encoded to remove metadata.</span></label>
+      <label class="responsibility-check"><input id="responsibleCheck" type="checkbox" required><span>I believe this is a first-hand, responsible observation and understand it is not an emergency alert.</span></label>
+      <div id="formError" class="form-error" role="alert" hidden></div>
+      <div class="dialog-actions"><button class="button button-subtle" type="button" id="cancelDialog">Cancel</button><button class="button button-primary" type="submit">Submit report</button></div>
+    </form>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite" class="toast"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
