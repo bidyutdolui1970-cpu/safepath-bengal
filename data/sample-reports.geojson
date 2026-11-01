@@ -1,0 +1,119 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "demo-1",
+        "category": "flood",
+        "title": "Illustrative waterlogging",
+        "locationName": "Howrah · sample point",
+        "description": "Illustrative data only. This is not a verified or live incident.",
+        "reportedAt": "2026-11-01T08:30:00Z",
+        "status": "unverified",
+        "demo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.2636,
+          22.5958
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "demo-2",
+        "category": "road-blockage",
+        "title": "Illustrative road blockage",
+        "locationName": "Kolkata · sample point",
+        "description": "Sample report to demonstrate map filters and report details.",
+        "reportedAt": "2026-11-01T09:10:00Z",
+        "status": "unverified",
+        "demo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.3639,
+          22.5726
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "demo-3",
+        "category": "damaged-road",
+        "title": "Illustrative damaged road",
+        "locationName": "Chinsurah · sample point",
+        "description": "Illustrative report only. Consult official local information.",
+        "reportedAt": "2026-11-01T07:40:00Z",
+        "status": "unverified",
+        "demo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          88.392,
+          22.895
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "demo-4",
+        "category": "service-disruption",
+        "title": "Illustrative service disruption",
+        "locationName": "Bardhaman · sample point",
+        "description": "Demo entry to show category analytics and recent reports.",
+        "reportedAt": "2026-11-01T06:55:00Z",
+        "status": "unverified",
+        "demo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          87.8615,
+          23.2324
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "demo-5",
+        "category": "public-facility",
+        "title": "Illustrative public facility",
+        "locationName": "Siliguri · sample point",
+        "description": "Example facility marker. The location is not a verified listing.",
+        "reportedAt": "2026-11-01T05:20:00Z",
+        "status": "unverified",
+        "demo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [88.3953, 26.7271]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "demo-6",
+        "category": "community-location",
+        "title": "Illustrative community location",
+        "locationName": "Digha · sample point",
+        "description": "Example community-location marker; not a current safety notice.",
+        "reportedAt": "2026-11-01T04:15:00Z",
+        "status": "unverified",
+        "demo": true
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [87.5074, 21.6289]
+      }
+    }
+  ]
+}
